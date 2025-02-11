@@ -1,0 +1,27 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dove
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: 123
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+      format_sql: true
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+
+api:
+  prefix: api/v1
+
+token:
+  access_token_key: "v0yHyjTfJpLdzGC1A6yHEFZWOT6jQWUVFAkCcKXofODjxidglVrHVpBK9+NsZcSY"      #32 bytes
+  access_token_expiration: 7200 #2 hours
+  refresh_token_key: "gBdAWm7gixEyBRGV6bqBFx3QgTd//gJEy/Fp77nL7XPlReTDVDhdAC+lJVk/i3M/"     #32 bytes
+  refresh_token_expiration: 604800 #7 days
+cookie:
+    max_age: 2592000 #30 days
