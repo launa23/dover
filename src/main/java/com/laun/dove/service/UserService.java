@@ -44,23 +44,33 @@ public class UserService {
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
     }
 
-    public void save(User user) {
+    public User save(User user) {
         // save user
-        user.setStatus(Status.ONLINE);
-        userRepository.save(user);
+        User storedUser = userRepository.findById(user.getId()).orElse(null);
+        if (storedUser == null) {
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
+        }
+        storedUser.setStatus(Status.ONLINE);
+        return userRepository.save(storedUser);
     }
 
-    public void disconnect(User user) {
+    public User disconnect(User user) {
         // disconnect user
         User storedUser = userRepository.findById(user.getId()).orElse(null);
-        if (storedUser != null) {
-            storedUser.setStatus(Status.OFFLINE);
-            userRepository.save(storedUser);
+        if (storedUser == null) {
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
+        storedUser.setStatus(Status.OFFLINE);
+        return userRepository.save(storedUser);
     }
 
     public List<User> findAll() {
         // find connected users
         return userRepository.findAll();
+    }
+
+    public List<User> findAllUserOnline(String id) {
+        // find connected users
+        return userRepository.findByStatusAndIdIsNot(Status.ONLINE, id);
     }
 }

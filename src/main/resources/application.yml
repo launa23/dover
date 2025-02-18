@@ -20,7 +20,7 @@ api:
 
 token:
   access_token_key: "v0yHyjTfJpLdzGC1A6yHEFZWOT6jQWUVFAkCcKXofODjxidglVrHVpBK9+NsZcSY"      #32 bytes
-  access_token_expiration: 7200 #2 hours
+  access_token_expiration: 604800 #2 hours: 7200
   refresh_token_key: "gBdAWm7gixEyBRGV6bqBFx3QgTd//gJEy/Fp77nL7XPlReTDVDhdAC+lJVk/i3M/"     #32 bytes
   refresh_token_expiration: 604800 #7 days
 cookie:

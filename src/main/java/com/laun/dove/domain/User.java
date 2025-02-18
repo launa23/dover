@@ -34,6 +34,9 @@ public class User extends BaseEntity{
     @Column(name = "status", length = 10)
     private Status status;
 
+//    @Column(name = "avatar", length = 200)
+//    private String avatar;
+
     @Column(name = "role", length = 10)
     private Set<String> roles;
 

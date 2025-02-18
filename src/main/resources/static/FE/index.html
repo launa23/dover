@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/main.css">
     <title>Dover</title>
 </head>
-<body> 
+<body onload="checkLogin()"> 
     <div class="container-fluid" style="height: 100vh;">
         <div class="row ">
             <div class="col-lg-3">
@@ -51,8 +51,28 @@
                             <div class="tab-item">Cộng đồng</div>
                         </div>
                         <div class="body-container">
-                            <div class="list-chat-user">
-                                <div class="item-chat-user">
+                            <div class="list-chat-user" id="listUserOnline">
+                                <div class="item-chat-user" id = "111">
+                                    <div class="user-avatar ">
+                                        <img src="./assets/avatar.png" class="img-user-avatar" alt="">
+                                    </div>
+                                    <div class="p_0 username-and-message" >
+                                        <div class="user-name-and-new-time">
+                                            <div class="user-name">
+                                                John Wick
+                                            </div>
+                                            <div class="new-time">
+                                                Hôm qua
+                                            </div>
+                                        </div>
+                                        <div class="chat-message ">
+                                            <span style="margin-right: 4px;">Bạn:</span>
+                                            <p class="truncated m-0">Anh xin thông báo, vừa nhật được tin mật báo của Trưởng thôn </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item-chat-user" id = "222">
                                     <div class="user-avatar ">
                                         <img src="./assets/avatar.png" class="img-user-avatar" alt="">
                                     </div>
@@ -91,7 +111,7 @@
                     </div>
                 </div>
                 <div class="body-chat-area">
-                    <div class="display-message" id="display-message-area">
+                    <div class="display-message" id="display-message-area-111">
                         <div class="title-user">
                             <img src="./assets/avatar.png" alt="" style="width: 100px; border-radius: 50%;">
                             <div class="is-friend hidden">Bạn bè</div>
@@ -116,6 +136,29 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="display-message hidden" id="display-message-area-222">
+                        <div class="title-user">
+                            <img src="./assets/avatar.png" alt="" style="width: 100px; border-radius: 50%;">
+                            <div class="is-friend hidden">Bạn bè</div>
+                            <button class="btn-add-friend-in-display-message " id="btnAddFriend">Gửi lời mời kết bạn</button>
+                            <button class="cancel-add-friend hidden" id="btnCancelAddFriend">Hủy lời mời kết bạn...</button>
+                            <div style="font-size: 12px; color: #b0b0b0; margin-top: 8px;">Bắt đầu cuộc trò chuyện nào!</div>
+                            <div class="greeting">Hãy gửi lời chào đến John Wick!</div>
+                        </div>
+                        <div class="message-segment my-message" >
+                            <div class="message-key ">
+                                Tin nhắn của tôi
+                            </div>
+                        </div>
+                        <div class="message-segment my-message" >
+                            <div class="message-key ">
+                                Ta đi 
+                            </div>
+                        </div>
+                        
+                    </div>
+
                     <div class="compose-message">
                         <input type="text" name="" id="input-text-message" class="input-message" placeholder="Nhập tin nhắn...">
                     </div>
@@ -125,9 +168,23 @@
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
 <script src="./js/main.js"></script>
+ <!-- <script>
+    $('#222').on('click', () => {
+        $('#display-message-area-111').addClass('hidden');
+        $('#display-message-area-222').removeClass('hidden');
+
+    })
+
+    $('#111').on('click', () => {
+        $('#display-message-area-222').addClass('hidden');
+        $('#display-message-area-111').removeClass('hidden');
+
+    })
+ </script> -->
 </body>
 </html>

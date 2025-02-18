@@ -6,10 +6,8 @@ import com.laun.dove.domain.User;
 import com.laun.dove.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,22 +26,13 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @MessageMapping("/user.addUser")
-    @SendTo("/user/topic")
-    public User addUser( @Payload User user) {
-        userService.save(user);
-        return user;
-    }
-
-    @MessageMapping("/user.disconnect")
-    @SendTo("/user/topic")
-    public User disconnect(@Payload User user) {
-        userService.disconnect(user);
-        return user;
-    }
-
     @GetMapping("")
     public ResponseEntity<List<User>> findAll() {
         return ResponseEntity.ok(userService.findAll());
+    }
+
+    @GetMapping("/online")
+    public ResponseEntity<List<User>> findAllUserOnline(@Param("id") String id) {
+        return ResponseEntity.ok(userService.findAllUserOnline(id));
     }
 }

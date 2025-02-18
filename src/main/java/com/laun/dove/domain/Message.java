@@ -19,11 +19,14 @@ public class Message extends BaseEntity{
     private String content;
 
     @ManyToOne
-    @Column(name = "sender_id", nullable = false)
-    private User senderId;
+    @JoinColumn(name = "sender_id", nullable = false)
+    private User sender;
 
     @ManyToOne
-    @Column(name = "recipient_id", nullable = false)
-    private User recipientId;
+    @JoinColumn(name = "recipient_id", nullable = false)
+    private User recipient;
 
+    @ManyToOne
+    @JoinColumn(name = "chat_room_id", nullable = false)
+    private ChatRoom chatRoom;
 }
