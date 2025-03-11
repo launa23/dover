@@ -2,14 +2,14 @@ server:
   port: 8088
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/dove
+    url: ${DBMS_CONNECTION:jdbc:postgresql://localhost:5432/dove}
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: 123
+    username: ${DBMS_USERNAME}
+    password: ${DBMS_PASSWORD}
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
       format_sql: true

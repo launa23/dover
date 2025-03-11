@@ -53,6 +53,7 @@ public class AuthenticationService {
         if (!passwordEncoder.matches(authenticateDto.getPassword(), user.getPassword())) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         }
+        log.info("Secret key {}", accessTokenKey);
         return buildPairOfToken(user);
     }
 

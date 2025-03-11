@@ -3,7 +3,7 @@ const TOKEN = localStorage.getItem("token");
 const BASE_URL = "http://127.0.0.1:8088/api/v1";
 let currentUser = null;
 let stompClient = null;
-let connectedUsers = null;
+let usersInChatRoom = null;
 function checkLogin() {
     if (isLogin != 1) {
         // let htmlSnippet = `
@@ -42,7 +42,7 @@ $(document).ready(function() {
 });
 
 function connect() {
-    findAndDisplayConnectedUsers();
+    findAndDisplayUsers();
         stompClient = new StompJs.Client({
             brokerURL: 'ws://127.0.0.1:8088/ws'
         });
@@ -70,51 +70,74 @@ function connect() {
 }
 function userOnlineOffline(user){
     if (user.status == "ONLINE" && user.id != currentUser.id){
-        $('#listUserOnline').append(`<div class="item-chat-user" id = "${user.id}">
-            <div class="user-avatar ">
-                <img src="./assets/avatar.png" class="img-user-avatar" alt="">
-            </div>
-            <div class="p_0 username-and-message" >
-                <div class="user-name-and-new-time">
-                    <div class="user-name">
-                        ${user.fullName}
-                    </div>
-                    <div class="new-time">
-                        Hôm qua
-                    </div>
-                </div>
-                <div class="chat-message ">
-                    <span style="margin-right: 4px;">Bạn:</span>
-                    <p class="truncated m-0">Anh xin thông báo, vừa nhật được tin mật báo của Trưởng thôn </p>
-                </div>
-            </div>
-        </div>`)
+        $(`#${user.id} .dot-activate`).removeClass('hidden');
     }
     else if (user.status == "OFFLINE" && user.id != currentUser.id) {
-        $('#listUserOnline').find(`#${user.id}`).remove();
+        $(`#${user.id} .dot-activate`).addClass('hidden');
     }
 }
 
-async function findAndDisplayConnectedUsers() {
-    const connectedUsersResponse = await fetch(BASE_URL + `/user/online?id=${currentUser.id}`, {
-        method: 'GET', // Hoặc phương thức phù hợp
+async function findAndDisplayUsers() {
+    const connectedUsersResponse = await fetch(BASE_URL + `/chat-room/get-user-in-chat-room?limit=2&page=1`, {
+        method: 'GET', 
         headers: {
           'Authorization': TOKEN,
-          'Content-Type': 'application/json' // Nếu cần thiết
+          'Content-Type': 'application/json' 
         },
       });
-      connectedUsers = await connectedUsersResponse.json();
-      renderUserOnline(connectedUsers);
-      console.log(connectedUsers);
+      usersInChatRoom = await connectedUsersResponse.json();
+      renderUsersChatRoom(usersInChatRoom);
+      console.log(usersInChatRoom);
       
 } 
 
-function renderUserOnline(connectedUsers){
-    if (connectedUsers.length > 0){
-        connectedUsers.forEach(user => {
+function handleSendDate(sendDateInput){
+    let sendDate = new Date(sendDateInput);
+    let currentDay = new Date();
+    let differenceInTime = Math.ceil(((currentDay - sendDate) / (1000 * 3600 * 24)).toFixed(1));
+    
+    let textDay = "Hôm nay";
+    switch (differenceInTime) {
+        case 0: 
+            textDay = sendDate.getHours() + ":" + String(sendDate.getMinutes()).padStart(2, '0'); 
+            break;
+        case 1:
+            textDay = "Hôm qua";
+            break;
+        case 2:
+            textDay = "2 ngày";
+            break;
+        case 3:
+            textDay = "3 ngày";
+            break;
+        case 4:
+            textDay = "4 ngày";
+            break;
+        case 5:
+            textDay = "5 ngày";
+            break;
+        default: {
+            if (sendDate.getFullYear() != currentDay.getFullYear()){
+                textDay = sendDate.getDate() + "/" + (sendDate.getMonth() + 1) + "/" (sendDate.getFullYear() - 2000)
+            }
+            else{
+                textDay = sendDate.getDate() + "/" + (sendDate.getMonth() + 1)
+            }
+            break;
+        }
+    }
+    return textDay;
+}
+
+function renderUsersChatRoom(usersInChatRoom){
+    if (usersInChatRoom.length > 0){
+        usersInChatRoom.forEach(user => {
+            let textDay = handleSendDate(user.updatedAt);
+            let isMe = user.senderId == currentUser.id ? true : false;
             $('#listUserOnline').append(`<div class="item-chat-user" id = "${user.id}">
-                                    <div class="user-avatar ">
+                                    <div class="user-avatar position-relative">
                                         <img src="./assets/avatar.png" class="img-user-avatar" alt="">
+                                        <span class="position-absolute translate-middle border rounded-circle dot-activate ${user.status == "0" ? "" : "hidden"}"></span>
                                     </div>
                                     <div class="p_0 username-and-message" >
                                         <div class="user-name-and-new-time">
@@ -122,15 +145,19 @@ function renderUserOnline(connectedUsers){
                                                 ${user.fullName}
                                             </div>
                                             <div class="new-time">
-                                                Hôm qua
+                                                ${textDay}
                                             </div>
                                         </div>
                                         <div class="chat-message ">
-                                            <span style="margin-right: 4px;">Bạn:</span>
-                                            <p class="truncated m-0">Anh xin thông báo, vừa nhật được tin mật báo của Trưởng thôn </p>
+                                            ${isMe ? '<span style="padding-right: 4px;">Bạn:</span>' : ""}
+                                            <p class="truncated m-0">${user.content}</p>
                                         </div>
                                     </div>
-                                </div>`)
+                                </div>`);
+            $(`#${user.id}`).on('click', () => {
+                $('#titleName').text(user.fullName);
+
+            })
         });
     }
 }

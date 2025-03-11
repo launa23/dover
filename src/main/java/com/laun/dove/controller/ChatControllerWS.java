@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("${api.prefix}/chat")
+@Controller
 @RequiredArgsConstructor
 @Slf4j
 public class ChatControllerWS {
@@ -28,8 +27,4 @@ public class ChatControllerWS {
         messagingTemplate.convertAndSendToUser(messageDto.getRecipientId(), "/queue/messages", message);
     }
 
-    @PostMapping("/send-message")
-    public void sendMessageRest(@RequestBody MessageDto messageDto) {
-        Message message = messageService.save(messageDto);
-    }
 }

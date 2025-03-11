@@ -1,5 +1,6 @@
 package com.laun.dove.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,13 +21,16 @@ public class Message extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
+    @JsonIgnoreProperties(value = {"fullName", "email", "status", "lastOnlineAt", "roles", "createdAt", "updatedAt", "deletedAt", "deleted"}, allowSetters = true)
     private User sender;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipient_id", nullable = false)
+    @JsonIgnoreProperties(value = {"fullName", "email", "status", "lastOnlineAt", "roles", "createdAt", "updatedAt", "deletedAt", "deleted"}, allowSetters = true)
     private User recipient;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_room_id", nullable = false)
+    @JsonIgnoreProperties(value = {"user1", "user2", "lastMessage", "createdAt", "updatedAt", "deletedAt", "deleted"}, allowSetters = true)
     private ChatRoom chatRoom;
 }

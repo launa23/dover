@@ -52,9 +52,10 @@
                         </div>
                         <div class="body-container">
                             <div class="list-chat-user" id="listUserOnline">
-                                <div class="item-chat-user" id = "111">
-                                    <div class="user-avatar ">
+                                <!-- <div class="item-chat-user" id = "111">
+                                    <div class="user-avatar position-relative">
                                         <img src="./assets/avatar.png" class="img-user-avatar" alt="">
+                                        <span class="position-absolute translate-middle border rounded-circle dot-activate"></span>
                                     </div>
                                     <div class="p_0 username-and-message" >
                                         <div class="user-name-and-new-time">
@@ -70,97 +71,45 @@
                                             <p class="truncated m-0">Anh xin thông báo, vừa nhật được tin mật báo của Trưởng thôn </p>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="item-chat-user" id = "222">
-                                    <div class="user-avatar ">
-                                        <img src="./assets/avatar.png" class="img-user-avatar" alt="">
-                                    </div>
-                                    <div class="p_0 username-and-message" >
-                                        <div class="user-name-and-new-time">
-                                            <div class="user-name">
-                                                John Wick
-                                            </div>
-                                            <div class="new-time">
-                                                Hôm qua
-                                            </div>
-                                        </div>
-                                        <div class="chat-message ">
-                                            <span style="margin-right: 4px;">Bạn:</span>
-                                            <p class="truncated m-0">Anh xin thông báo, vừa nhật được tin mật báo của Trưởng thôn </p>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-9 p_0 chat-area">
-                <div class="header-chat-area">
-                    <div class="title-chat-area">
-                        <div class="position-relative">
-                            <img src="./assets/avatar.png" alt="" width="100%" style="border-radius: 50%;">
-                            <span class="position-absolute translate-middle border rounded-circle dot-activate">
-                            </span>
-                        </div>
-                        <div class="name-header-chat-area">
-                            <div class="" style="color: #fff; font-size: 1rem; font-weight: 600; width: 100%;">John Wick</div>
-                            <div class="" style="color: #bcbcbcbd; font-size: 12px; ">Truy cập 11 giờ trước</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="body-chat-area">
-                    <div class="display-message" id="display-message-area-111">
-                        <div class="title-user">
-                            <img src="./assets/avatar.png" alt="" style="width: 100px; border-radius: 50%;">
-                            <div class="is-friend hidden">Bạn bè</div>
-                            <button class="btn-add-friend-in-display-message " id="btnAddFriend">Gửi lời mời kết bạn</button>
-                            <button class="cancel-add-friend hidden" id="btnCancelAddFriend">Hủy lời mời kết bạn...</button>
-                            <div style="font-size: 12px; color: #b0b0b0; margin-top: 8px;">Bắt đầu cuộc trò chuyện nào!</div>
-                            <div class="greeting">Hãy gửi lời chào đến John Wick!</div>
-                        </div>
-                        <div class="message-segment my-message" >
-                            <div class="message-key ">
-                                Tin nhắn của tôi
+                <div class="chat-container">
+                    <div class="header-chat-area">
+                        <div class="title-chat-area">
+                            <div class="position-relative">
+                                <img src="" alt="" width="100%" style="border-radius: 50%;">
+                                </span>
                             </div>
-                        </div>
-                        <div class="message-segment my-message" >
-                            <div class="message-key ">
-                                Ta đi 
-                            </div>
-                        </div>
-                        <div class="message-segment other-message" >
-                            <div class="message-key ">
-                                Để chỉnh chiều dài tối đa cho một thẻ và tự động xuống dòng khi đoạn văn bản dài quá chiều dài tối đa, bạn có thể sử dụng thuộc tính CSS max-width kết hợp với word-wrap hoặc overflow-wrap. Dưới đây là một ví dụ:
+                            <div class="name-header-chat-area" id="nameHeaderChatArea">
+                                <div id="titleName" style="color: #fff; font-size: 1rem; font-weight: 600; width: 100%;"></div>
+                                <div id="titleLastOnline" style="color: #bcbcbcbd; font-size: 12px; "></div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="display-message hidden" id="display-message-area-222">
-                        <div class="title-user">
-                            <img src="./assets/avatar.png" alt="" style="width: 100px; border-radius: 50%;">
-                            <div class="is-friend hidden">Bạn bè</div>
-                            <button class="btn-add-friend-in-display-message " id="btnAddFriend">Gửi lời mời kết bạn</button>
-                            <button class="cancel-add-friend hidden" id="btnCancelAddFriend">Hủy lời mời kết bạn...</button>
-                            <div style="font-size: 12px; color: #b0b0b0; margin-top: 8px;">Bắt đầu cuộc trò chuyện nào!</div>
-                            <div class="greeting">Hãy gửi lời chào đến John Wick!</div>
-                        </div>
-                        <div class="message-segment my-message" >
-                            <div class="message-key ">
-                                Tin nhắn của tôi
+                    <div class="body-chat-area" id="bodyChatArea">
+                        <div class="display-message" id="display-message-area">
+                            <div class="title-user">
+                                <img src="./assets/avatar.png" alt="" style="width: 100px; border-radius: 50%;">
+                                <div class="is-friend hidden">Bạn bè</div>
+                                <button class="btn-add-friend-in-display-message " id="btnAddFriend">Gửi lời mời kết bạn</button>
+                                <button class="cancel-add-friend hidden" id="btnCancelAddFriend">Hủy lời mời kết bạn...</button>
+                                <div style="font-size: 12px; color: #5f5f5f; margin-top: 8px;">Bắt đầu cuộc trò chuyện nào!</div>
+                                <div class="greeting">Hãy gửi lời chào đến John Wick!</div>
+                            </div>
+                            <div class="message-segment my-message" >
+                                <div class="message-key ">
+                                    Tin nhắn của tôi
+                                </div>
                             </div>
                         </div>
-                        <div class="message-segment my-message" >
-                            <div class="message-key ">
-                                Ta đi 
-                            </div>
+                        <div class="compose-message">
+                            <input type="text" name="" id="input-text-message" class="input-message" placeholder="Nhập tin nhắn...">
                         </div>
-                        
-                    </div>
-
-                    <div class="compose-message">
-                        <input type="text" name="" id="input-text-message" class="input-message" placeholder="Nhập tin nhắn...">
                     </div>
                 </div>
             </div>

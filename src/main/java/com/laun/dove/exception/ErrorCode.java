@@ -18,6 +18,7 @@ public enum ErrorCode {
     EMAIL_NOT_FOUND(1009, "Email not found", HttpStatus.NOT_FOUND),
     UNAUTHENTICATED(1010, "User authentication failed", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1011, "You do not have permission", HttpStatus.FORBIDDEN),
+    RESOURCE_NOT_FOUND(1012, "Resource not found", HttpStatus.NOT_FOUND),
     ;
     private int code;
     private String message;

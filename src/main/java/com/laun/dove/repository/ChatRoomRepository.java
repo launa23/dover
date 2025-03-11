@@ -22,6 +22,7 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, String> {
             "\tcr.updated_at,\n" +
             "\tu.fullname,\n" +
             "\tu.email,\n" +
+            "\tu.status,\n" +
             "\tm.content,\n" +
             "\tm.sender_id\n" +
             "from chat_rooms cr\n" +

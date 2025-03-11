@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -34,6 +35,8 @@ public class User extends BaseEntity{
     @Column(name = "status", length = 10)
     private Status status;
 
+    @Column(name = "last_online_at")
+    private LocalDateTime lastOnlineAt;
 //    @Column(name = "avatar", length = 200)
 //    private String avatar;
 

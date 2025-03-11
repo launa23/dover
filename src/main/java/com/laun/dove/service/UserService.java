@@ -2,6 +2,7 @@ package com.laun.dove.service;
 
 import com.laun.dove.controller.dto.UserDto;
 import com.laun.dove.domain.User;
+import com.laun.dove.domain.enumeration.Role;
 import com.laun.dove.domain.enumeration.Status;
 import com.laun.dove.exception.AppException;
 import com.laun.dove.exception.ErrorCode;
@@ -12,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +33,7 @@ public class UserService {
                 .fullName(user.getFullName())
                 .password(new BCryptPasswordEncoder(10).encode(user.getPassword()))
                 .status(Status.ONLINE)
+                .roles(new HashSet<>(List.of(Role.ROLE_USER.toString())))
                 .build();
         return userRepository.save(newUser);
     }
@@ -61,6 +65,7 @@ public class UserService {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
         storedUser.setStatus(Status.OFFLINE);
+        storedUser.setLastOnlineAt(LocalDateTime.now());
         return userRepository.save(storedUser);
     }
 

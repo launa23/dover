@@ -1,6 +1,7 @@
 package com.laun.dove.service;
 
 import com.laun.dove.controller.dto.MessageDto;
+import com.laun.dove.controller.dto.MessageProjection;
 import com.laun.dove.domain.ChatRoom;
 import com.laun.dove.domain.Message;
 import com.laun.dove.domain.User;
@@ -9,9 +10,14 @@ import com.laun.dove.exception.ErrorCode;
 import com.laun.dove.repository.ChatRoomRepository;
 import com.laun.dove.repository.MessageRepository;
 import com.laun.dove.repository.UserRepository;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -38,5 +44,12 @@ public class MessageService {
         chatRoom.setLastMessage(message);
         chatRoomRepository.save(chatRoom);
         return message;
+    }
+
+    public List<MessageProjection> findByChatRoom(int limit, int page, String chatRoomId) {
+        ChatRoom chatRoom = chatRoomRepository.findById(chatRoomId)
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
+        int offset = ( page - 1 ) * limit;
+        return messageRepository.findByMessageInChatRoom(chatRoomId, limit, offset);
     }
 }

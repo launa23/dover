@@ -16,9 +16,9 @@ public class ChatRoomService {
     private final UserService userService;
     private final UserInChatRoomRepository userInChatRoomRepository;
 
-    public List<UserInChatRoom> getUserInChatRoom() {
+    public List<UserInChatRoom> getUserInChatRoom(int limit, int page) {
         User currentUser = userService.getCurrentUserLogin();
-        return userInChatRoomRepository.getUserInChatRoom(currentUser.getId());
+        return userInChatRoomRepository.getUserInChatRoom(currentUser.getId(), limit, page);
     }
 
 }
